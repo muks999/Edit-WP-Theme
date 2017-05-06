@@ -1,0 +1,911 @@
+цвет фона #ffce62   цвет шрифта #211804 на ж фоне   или wdtn шрифта #201600
+Медицинский Центр №1.
+г.Нижний Новгород, ул.Минина 16А,
+www.medcenter1nn.ru
++7-831-422-24-56 
+что и как в теме undrstrap! 
+
+-верхнее цветная граница/рамка:  border-top: 10px solid #e3ca0d;
+
+1.Убираем  информацию о времени и авторе поста
+/domains/medcenter1nn.ru/public_html/new/wp-content/themes/understrap/loop-templates/content.php  и content-single.php
+
+2.изменения фона в "записях" archive.php  можно разный фон в услугах и новостях
+названия рубрик дописывать в ручную!
+$bc = 'fon-white ';
+
+    if (in_array(single_cat_title('', false), array('Диагностика позвоночника', 'Уход за лицом', 'Уход за волосами', 'Уход за телом'))) {
+        $bc = 'fon-white ';
+    }
+$bc = 'fon-white ';по умолчанию
+иначе, если сработает
+а     $bc  в классы body
+
+3.Динамический блок на главной(информация из админки).сначала создаем запись,чтоб узнать какой ID.
+<a href="/category/ruki" class="ubloks">
+					<?php 
+				/*URL миниатюры для ЭНЗИМНЫЙ ПИЛИНГ*/
+			 	$post_thumbnail_id = get_post_thumbnail_id( 189 ); 							
+				$post_thumbnail_url = wp_get_attachment_url( $post_thumbnail_id );  
+				?>			
+					<div  id="u4" class="tm-home-block-big tm-position-relative" style="background: url(<?php echo $post_thumbnail_url; ?>) no-repeat 100%">
+					<div class="uopisanie">
+						
+						<h3> <?php echo  get_the_title(189); ?> </h3>
+							
+							<p>Перейти в раздел</p>	
+						</div>
+						<div class="tm-red-box tm-img-overlay tm-img-overlay-1">
+								
+						</div>						
+					</div>
+					</a>
+
+4. Если съехала миниатюра на главной,то отцентровать можно 2 путями:
+	1. подготовьте предварительно картинку  по нужному размеру.
+	2. замените "100%" в строке  <div id="two" class="tm-home-block-big tm-position-relative" style="background: url(<?php echo $post_thumbnail_url; ?>) 100% no-repeat"> на, например, 57%
+	файл front-page.php
+	
+5.Вывод анонса с заданным количеством слов  (вставить в function.php)
+function new_excerpt_length($length) {
+  return 5;
+}
+add_filter('excerpt_length', 'new_excerpt_length');
+
+6. Убираем слово РУБРИКА перед названием рубрик:
+ в файле /medcenter1nn.ru/public_html/new/wp-content/themes/understrap-child/archive.php
+ вместо строчки  the_archive_title( '<h1 class="page-title">', '</h1>' );
+ вставляем такую строчку echo '<h1 class="page-title">' . single_cat_title( '', false ) . '</h1>';
+ если не сработает(у меня сработало),то есть еще варианты здесь (http://www.cyberforum.ru/wordpress/thread1529613.html)
+ 
+ 7.если не работают теги <br> в WP нужно вставить в functions.php активной темы следующее:
+ remove_filter( 'the_content', 'wpautop' ); // Отключаем автоформатирование в полном посте
+remove_filter( 'the_excerpt', 'wpautop' ); // Отключаем автоформатирование в кратком(анонсе) посте
+remove_filter('comment_text', 'wpautop'); // Отключаем автоформатирование в комментариях
+
+8.Убрать навигацию по записям в 1 Записи. т.е. пред и след запись
+в файле single.php Родительской темы закоментил строку
+<!--<?php the_post_navigation(); ?>-->
+
+
+9. ФОРМА обр звязи + contact form7
+цвет фона кнопки #e3ca0d
+цвет нач шрифта был #b29e08 поменял на #746603  (цвет :hover #FFF)
+label ваше "имя правится" в /input label/
+
+10.//Автоматическое создание мета-описания Meta Description из The_content/ 
+Вставка этого фрагмента кода в файл functions.php вашей WordPress темы автоматически создаст meta description из вашего поста, отсекая шорткоды и теги. Также убедитесь, что у вас есть этот код в файле header.php, иначе этот фрагмент не будет работать.
+function create_meta_desc() {
+    global $post;
+    if (!is_single()) { return; }
+    $meta = strip_tags($post->post_content);
+    $meta = strip_shortcodes($post->post_content);
+    $meta = str_replace(array("\n", "\r", "\t"), ' ', $meta);
+    $meta = substr($meta, 0, 125);
+    echo "<meta name='description' content='$meta' />";
+}
+add_action('wp_head', 'create_meta_desc');
+
+11.Редирект записи, когда поисковый запрос выдает один результат.
+Вставьте этот фрагмент кода в файл functions.php вашей WordPress темы для того, чтобы перенаправлять пользователя на пост автоматически, если WordPress поиск отдает только его в качестве результата.
+add_action('template_redirect', 'single_result');
+function single_result() {
+    if (is_search()) {
+        global $wp_query;
+        if ($wp_query->post_count == 1) {
+            wp_redirect( get_permalink( $wp_query->posts['0']->ID ) );
+        }
+    }
+}
+
+
+12.отцентрировать картинку в постах
+.aligncenter {
+display: block;
+margin-left: auto;
+margin-right: auto;
+text-align: center;
+}
+
+13. Добавляем СВОЮ соц сеть в DIVI теме:
+Please add the following code to includes/social_icons.php before </ul>:
+<li class="et-social-icon et-social-vk">
+<a href="https://VK.com/elegantthemes/‎" class="icon">
+<span><?php esc_html_e( 'VK', 'Divi' ); ?></span>
+</a>
+</li>
+
+then add the following code to custom css box in Divi>theme options:
+.et-social-vk a.icon:before { content: url("vk icon url here"); }
+
+
+14. Если ОШИБКА в форме подписки то! (поля(кол-во) в форме и в листе mailchimp должны быть одинаковы!!!! )
+
+15. редактир стилей точечной навигации на сайте 
+вставить css в настройках темы(встроенный css)
+/* Side Nav Background */
+ul.et_pb_side_nav {
+    background: rgba(195,0,0,0.99);
+}
+ 
+/* Side Dot Nav Link */
+ul.et_pb_side_nav .side_nav_item a {
+    background-color: #FFF;
+}
+ 
+/* Side Dot Nav Link (Active) */
+ul.et_pb_side_nav .side_nav_item a.active {
+    background-color: #02AD0F !important;
+}
+ 
+/*Slider Dot Nav Styling*/
+.et-pb-controllers .et-pb-active-control {
+    background-color: #fff;
+}
+.et-pb-controllers .et-pb-active-control {
+    background-color: #02AD0F !important;
+}
+
+16.BREADCRUMBS хлебные крошки.
+в стомате в style.css и footer.php добавлен код и закоментил в футере. понадобится-раскоментить.
+
+17.добавить кнопку в header/
+добавить код в header.php после кода <span class="logo_helper"></span>
+*-*
+<a href="http://erpcannabis.newsites.activeyouthnetwork.com/free-assessment/" target="_blank"><button type="button" style="font: 18px Oswald">Login/Registration</button></a>
+
+18. сдвиг кнопки в слайдере влево вниз
+position: absolute;
+left: 3%;
+bottom: 0%;
++ изменение вида кнопки
+a.et_pb_more_button.et_pb_button.oct_btn_shadow_1.oct_btn_slide_none.oct_btn_other_none {
+padding: 15px 50px;
+line-height: 20px !important;
+}
+a.et_pb_more_button.et_pb_button.oct_btn_shadow_1.oct_btn_slide_none.oct_btn_other_none:hover{
+padding: 15px 50px;
+line-height: 20px !important;
+}
+
+19. делаем Слайд кликабельным
+-добавляем класс в слайдер-модуль (wpc-slider)
+-then add an empty link into the slide content area, also set a css class to the link in the slide content.:
+     <a href="#" class="slide-link"></a>
+-Lastly add this css code to Divi -> Theme Options -> General Panel -> Custom Css:
+.slide-link {
+   display: block;
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   z-index: 9999;
+}
+
+20. Блок с услугами 6 объектов в ряд
+features_section
+.features_section .et_pb_text{width:16.66%; float:left;}
+
+21.ошибка в functions.php ~595 строка
+!заменить этот код
+if ( '' !== $site_domain && isset( $et_domain_fonts[$site_domain] ) && false === strpos( $google_font_properties['character_set'], $et_domain_fonts[$site_domain] ) ) {
+continue;
+}
+!на
+$character_set = isset($google_font_properties['character_set']) ? $google_font_properties['character_set'] : '';
+if ( '' !== $site_domain && isset( $et_domain_fonts[$site_domain] ) && false === strpos( $character_set, $et_domain_fonts[$site_domain] ) ) {
+continue;
+}
+
+
+22.сдвиг тел и емыла в лево в вверхнем хедере
+#et-info {
+    float: right;
+}
+
+23. РАЗДВигаем картинки в галлерее и убираем background
+.et_pb_gallery_items[data-per_page="3"] .et_pb_gallery_item.et_pb_grid_item {
+margin-right: 1% !important;
+width: 32% !important;
+}
+
+24.разделители в хедере и футере
+/*Добавляем вертикальные делители в хедер меню*/
+.et_pb_contact .et_pb_contact_field_half {
+width: 100%;
+}
+/* add line between top menu items */
+#top-menu > li:after {
+content: "";
+width: 1px;
+height: 8px;
+background-color: #bca062;
+position: absolute;
+top: 0;
+right: 8px;
+}
+
+/* lines between widgets */
+.footer-widget:after {
+content: "";
+width: 1px;
+height: 30%;
+background-color: #64686e;
+position: absolute;
+top: 33%;
+margin-left: 10px;
+}
+.footer-widget.last:after {
+display: none;
+}
+
+25./*Gradient color in HEADER menu*/
+#main-header{
+background: linear-gradient(to right,  #ffce62 0%,#ffdb8d 100%);
+}
+
+26.Меняем цвет маркера в маркерованном списке
+.et_pb_row_inner.et_pb_row_inner_0.et_pb_equal_columns.et_pb_gutters1 li {
+    list-style-type: none; /* Прячем исходные маркеры */
+
+}
+.et_pb_row_inner.et_pb_row_inner_0.et_pb_equal_columns.et_pb_gutters1 li:before {
+    color: #ffce60; /* Цвет маркера */
+    content: "\2022"; /* Сам маркер -njxrf &bull*/
+    padding-right: 10px; /* Расстояние от маркера до текста */
+}
+
+27./*Background in footer*/
+#main-footer {
+      background-image: url(https://new.medcenter1nn.ru/wp-content/uploads/2017/01/footer-backgr.png);
+}
+
+28. /*Change fullwidth portfolio for "sponsors"*/ чтоб картинки убрались в квадрат
+.home .et_pb_fullwidth_portfolio .et_pb_portfolio_image img {
+height: auto !important;
+max-width: 100% !important;
+min-height: auto !important;
+min-width: auto !important;
+}
+
+29.Кнопка в хедере в меню
+Open header.php (that you copied to the child theme folder earlier.) and add this code
+<div class="book_button et_pb_button"><a href="url">Записаться<a></div>
+
+just above this line
+<div id="et-top-navigation" data-height="<?php echo esc_attr( et_get_option( 'menu_height', '66' ) ); ?>" data-fixed-height="<?php echo esc_attr( et_get_option( 'minimized_menu_height', '40' ) ); ?>">
+
+после добавляем css в тему
+/*Button in header menu*/
+.book_button.et_pb_button {
+position: relative;
+display: inline-block;
+left: 25%;
+top: 30px;
+}
+.book_button {
+padding: 0 1em !important;
+}
+book_button.et_pb_button a {
+color:#211804 !important;
+}
+.et-fixed-header .book_button {
+position: relative;
+top: 7px;
+}
+
+30.HOVER наименования записи в блоге и кнопка читать далее(изм цвета и положения)
+et_pb_blog_0 .et_pb_post .entry-title:hover {
+    color: #ffce60 !important;
+}
+.et_pb_blog_0 .et_pb_post .et_pb_post .more-link{
+	color: #ffce62 !important;
+	float: right;
+}
+
+31.аккордеон всегда закрыт при 1 отображение. добавить код в футер ИЛИ интеграция в HEAD
+<script>
+jQuery(function($){
+    $('.et_pb_accordion .et_pb_toggle_open').addClass('et_pb_toggle_close').removeClass('et_pb_toggle_open');
+
+    $('.et_pb_accordion .et_pb_toggle').click(function() {
+      $this = $(this);
+      setTimeout(function(){
+         $this.closest('.et_pb_accordion').removeClass('et_pb_accordion_toggling');
+      },700);
+    });
+});
+</script>
+
+32. включения меню для планшетов при разрешении меньше 1510
+@media only screen and (max-width: 1510px) and (min-width: 981px){
+#et_mobile_nav_menu {
+display: block;
+}
+}
+@media only screen and (max-width: 1510px) and (min-width: 981px){
+#top-menu {
+display: none;
+}
+}
+
+33.Добавить кнопку со стилями в слайдере
+вставить следующее в контент слайдера
+<a class="et_pb_more_button et_pb_button" href="http://abccba.org/abc">SUBSCRIBE NOW</a>
+
+34.убираем емыл из header в мобильном виде и увелич телефон и делаем его активным
+/*-------------------[480px]------------------*/
+@media only screen and ( max-width: 767px ) {
+
+	/*-------------------[Menu]------------------*/
+#et-info-email, #et-secondary-menu {
+    display: none;
+}
+#et-info-phone a, #et-secondary-menu {
+text-align: center !important;
+/*color: red;*/
+font-size: 1.5em !important;
+}
+
+}
+#et-info-phone, #et-secondary-menu {
+text-align: center !important;
+}
+}
+
+35. /*Удаляем циклические ссылки из меню https://www.youtube.com/watch?v=UzcgvzM2GD4*/
+function artabr_menu_no_link($no_link){
+$in_link = '!<li(.*?)class="(.*?)current-menu-item(.*?)"><a(.*?)>(.*?)</a>!si';
+$out_link = '<li$1class="\\2current-menu-item\\3">$5';
+return preg_replace($in_link, $out_link, $no_link );
+}
+add_filter('wp_nav_menu', 'artabr_menu_no_link');
+
+после-проверить стили меню!!!  на сайте мед центра сделано так(в стилях дочерней темы):
+/*---редактируем стили меню после кода по удалению ссылок*/
+#top-menu li.current-menu-item,
+#top-menu li.current-menu-item > li,
+.bottom-nav li.current-menu-item > a,
+.footer-widget h4 {
+	color: #ffffff;
+}
+#top-menu li {
+   font-size: 16px;
+
+/*---редактируем стили меню после кода по удалению ссылок*/
+body {
+    color: #444444;
+}
+
+
+
+-------===========------------==================----------------
+ИЗ ФАЙЛА STYLE.CSS ИЗ CHILD THEME
+/*Добавляем шрифт*/
+@font-face {
+ font-family: SegoeUI;
+ src: url('fonts/segoeui.ttf');
+}
+
+/*ровняем верх строку (тел и емыл) по правому краю*/
+#et-info {
+    float: right;
+}
+
+/*меняем цвет иконок телефона и емыла*/
+#et-info-phone:before {
+    position: relative;
+    top: 2px;
+    margin-right: 2px;
+    content: "\e090";
+    color: #ffce62;
+}
+#et-info-email:before {
+    margin-right: 4px;
+    content: "\e076";
+    color: #ffce62;
+}
+
+/*Убираем мета картинки в постах-записях*/
+.et_post_meta_wrapper img:nth-of-type(1) { display: none; }
+
+
+.footer-widget h4 {
+    padding-bottom: 10px !important;
+
+
+}
+
+/*Изменение фона в ответе у капчи*/
+.et_pb_contact_form_0.et_pb_contact_form_container .input {
+    font-weight: bold;
+    font-size: 16px;
+    color: #e3ca0d !important;
+    background-color: rgba(247,247,247,0.15) !important;
+}
+
+/*добавление иконки ВКонтакте*/
+.et-social-vk a.icon:before { content: url("https://new.medcenter1nn.ru/wp-content/uploads/2016/12/vk-icon30-30-3.pn"); }
+
+/*расстояние между букв в меню*/
+.et_header_style_centered #logo, .et_header_style_centered #et-top-navigation, .et_header_style_centered nav#top-menu-nav, .et_header_style_centered #top-menu {
+    float: none;
+    letter-spacing: 1.5px;
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font-size: 100%;
+    vertical-align: baseline;
+    letter-spacing: 0.7px;
+}
+
+-----
+
+---------ИЗ ВСТРОЕННЫХ настроек CSS темы=======
+/*изм цвета заголовка поста при наведение мыши. кнопка читать далее вправо и цвет*/
+.et_pb_blog_0 .et_pb_post .entry-title:hover {
+    color: #ffce60 !important;
+}
+.et_pb_blog_0 .et_pb_post .more-link {
+    color: #ffce60 !important;
+    float: right;
+}
+
+/*ровняем миниатюру поста в блоге слева перед текстом*/
+.et_pb_post a img {
+    max-width: 30%;
+    float: left;
+    margin-right: 10px;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+/*убираем вывод миниатюры в посте. в спике постов миниатюра остается*/
+.et_pb_title_featured_container {
+    display: none;
+}
+
+/*Размер миниатюры поста для модуля блог*/
+.et_pb_post a img {
+    max-width: 30%;
+}
+/*Выравнивание фона блоков в моб версиях*/
+/*@media(max-width: 767px) {
+.et_pb_section {
+background-size: auto 50%;
+background-position: center top;
+}
+}*/
+/*@media(max-width: 767px) {
+.et_pb_section {
+background-size: 600% 100%;
+background-position: center top;
+}
+}*/
+
+/*---------выравнивание вправо тел и емыл в верхнем хедере----------*/
+#et-info {
+    float: right;
+}
+
+
+/*---------ГЛАВНЫЙ   САЙДБАР----------*/
+#sidebar h4.widgettitle {
+    font-weight: bold;
+padding-bottom:10px;
+}
+
+#menu-sajdbar-kategorii-po-umolchaniyu {
+    color: #211804;
+    font-weight: bold;
+    font-size: 16px !important;
+}
+
+#nav_menu-3 {
+    background-color: #ffce60;
+    padding: 15px;
+    max-height: 300px;
+}
+
+/*изм строку поиска в сайдбаре*/
+#searchsubmit {
+    cursor: pointer;
+    color: #211804 !important;
+    background-color: #ffce60 !important;
+   font-size: 14px;
+   font-style: italic;
+}
+#tag_cloud-2 .widgettitle {
+    background-color: #ffce60;
+    text-align: center;
+    padding-bottom: 5px !important;
+    padding-top: 5px !important;
+    margin-bottom: 10px;
+}
+.tagcloud a {
+    color: #211804 !important;
+    font-weight: bold !important;
+    font-size: 14px !important;
+background: #ffebbf;
+}
+
+.tagcloud a:hover{
+    background: #ffce60;
+}
+
+
+/*---------------Sidebar end-------------*/
+
+/*меняем ширину поля ввода в форме -флебологии*/
+.et_pb_contact .et_pb_contact_field_half {
+    max-width: 50%;
+}
+
+/*Button in header menu*/
+.book_button.et_pb_button {
+position: relative;
+display: inline-block;
+left: 21%;
+top: 30px;
+}
+.book_button {
+padding: 0 0.5em !important;
+}
+book_button.et_pb_button a {
+color:#211804 !important;
+}
+.et-fixed-header .book_button {
+position: relative;
+top: 7px;
+}
+.book_button:hover {
+    padding-right: 1.6em !important;
+}
+
+@media only screen and (max-width: 550px){
+.book_button.et_pb_button {
+left: 35%;
+}
+.book_button.et_pb_button:hover {
+padding-right:initial!important;
+}
+}
+
+/*Change fullwidth portfolio for "sponsors"*/
+.home .et_pb_fullwidth_portfolio .et_pb_portfolio_image img {
+height: auto !important;
+max-width: 100% !important;
+min-height: auto !important;
+min-width: auto !important;
+}
+
+/*Gradient color in HEADER menu*/
+#main-header{
+background: linear-gradient(to right,  #ffce62 0%,#ffdb8d 100%);
+}
+
+/*Меняем цвет маркера в маркерованном списке*/
+.et_pb_row_inner.et_pb_row_inner_0.et_pb_equal_columns.et_pb_gutters1 li,.et_pb_text.et_pb_module.et_pb_bg_layout_light.et_pb_text_align_left.et_pb_text_4 li {
+    list-style-type: none; /* Прячем исходные маркеры */
+
+}
+.et_pb_row_inner.et_pb_row_inner_0.et_pb_equal_columns.et_pb_gutters1 li:before,.et_pb_text.et_pb_module.et_pb_bg_layout_light.et_pb_text_align_left.et_pb_text_4 li:before {
+    color: #ffce60; /* Цвет маркера */
+    content: "\2022"; /* Сам маркер -njxrf &bull*/
+    padding-right: 10px; /* Расстояние от маркера до текста */
+    margin-left:-15px;
+}
+
+/*Убираем background в галлереи-РАЗДВИГАЕМ КАРТИНКИ*/
+.et_pb_gallery_items[data-per_page="3"] .et_pb_gallery_item.et_pb_grid_item {
+margin-right: 1% !important;
+width: 32% !important;
+}
+
+/*Добавляем вертикальные делители в хедер меню*/
+.et_pb_contact .et_pb_contact_field_half {
+width: 100%;
+}
+/* add line between top menu items */
+#top-menu > li:after {
+content: "";
+width: 1px;
+height: 8px;
+background-color: #bca062;
+position: absolute;
+top: 5px;
+right: 8px;
+}
+
+/* lines between widgets */
+.footer-widget:after {
+content: "";
+width: 1px;
+height: 30%;
+background-color: #64686e;
+position: absolute;
+top: 33%;
+margin-left: 10px;
+}
+.footer-widget.last:after {
+display: none;
+}
+
+
+/*Background in footer*/
+#main-footer {
+      background-image: url(https://medcenter1nn.ru/wp-content/uploads/2017/01/footer-backgr.png);
+}
+
+/*Измененная Кнопка на 1 слайде*/
+a.et_pb_more_button.et_pb_button.oct_btn_shadow_1.oct_btn_slide_none.oct_btn_other_none {
+padding: 15px 50px;
+line-height: 20px !important;
+}
+a.et_pb_more_button.et_pb_button.oct_btn_shadow_1.oct_btn_slide_none.oct_btn_other_none:hover{
+padding: 15px 50px !important;
+line-height: 20px !important;
+}
+
+/*6 elements in section partners*/
+.partners1_section .et_pb_image{width:16.66%; float:left;}
+.partners2_section .et_pb_image{width:20%; float:left;}
+
+/*6 elements in section features*/
+.features_section .et_pb_text{width:16.66%; float:left;}
+
+/*Для pad-phone view*/
+@media  (max-width: 980px) and (min-width: 768px) {
+  .features_section .et_pb_text {   
+    width: 33%!important;   
+    float: left!important;
+  }
+}
+
+@media  (max-width: 767px) and (min-width: 320px) {
+  .features_section .et_pb_text {   
+    width: 50%!important;   
+    float: left!important;
+  }
+}
+
+/*Clickable slide in slider */
+.slide-link {
+   display: block;
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   z-index: 9999;
+}
+
+/*MOVE IMAGE TO TOP LEFT EDGE OF SLIDER*/
+#dm-slider .et_pb_slide_image img {
+    margin-top: 0px;
+    margin-left: 0px;
+    max-height: 100% !important;
+}
+#dm-slider .et_pb_slide {
+    padding-left: 0px;
+}
+/* TURN DOTS INTO RECTANGLES */
+ 
+ 
+#dm-slider .et-pb-controllers a {
+    width: 24px;
+    height: 4px;
+    margin-right: 4px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+#dm-slider .et-pb-arrow-prev,
+#dm-slider .et-pb-arrow-next {
+    background-color: rgba(0, 0, 0, .25);
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50% !important;
+}
+#dm-slider .et-pb-controllers {
+    top: 30px !important;
+    left: calc(47.25% + 20px)!important;
+    width: 50%!important;
+    height: 10px!important;
+    text-align: left!important;
+}
+
+/*------------------------------------------------*/
+/*---------------[Custom Subscribe]---------------*/
+/*------------------------------------------------*/
+ 
+.demo-subscribe-section .et_pb_newsletter{padding: 20px 10px; border-radius:10px;}
+.demo-subscribe-section .et_pb_newsletter_description {padding: 0 0 20px 0; width: 100%;}
+.demo-subscribe-section .et_pb_newsletter_form {width: 100%;}
+.demo-subscribe-section .et_pb_newsletter_form p {display: inline-block; margin-right: 40px;}
+.demo-subscribe-section .et_pb_newsletter_form p input { padding: 8px 4% !important; width: 300px;}
+.demo-subscribe-section .et_pb_newsletter_button {padding: 2px 6px;}
+.demo-subscribe-section a.et_pb_newsletter_button:hover {padding: 2px 6px!important;}
+.demo-subscribe-section a.et_pb_newsletter_button:after {display:none;}
+.demo-subscribe-section .et_pb_newsletter_form p:nth-child(3) {display: none;}
+ 
+@media only screen and (max-width: 1100px) {
+.demo-subscribe-section .et_pb_newsletter_form p input { padding: 8px 4% !important; width: 275px;}
+}
+ 
+@media only screen and (max-width: 980px) {
+.demo-subscribe-section .et_pb_newsletter_form p input { padding: 8px 4% !important; width: 220px;}
+.demo-subscribe-section .et_pb_newsletter_description { width: 100% !important;}
+}
+ 
+@media only screen and (max-width: 767px) {
+.demo-subscribe-section .et_pb_newsletter_form p input { padding: 8px 4% !important; width: 240px;}
+}
+ 
+@media only screen and (max-width: 479px) {
+.demo-subscribe-section .et_pb_newsletter_form p input { padding: 8px 4% !important; width: 180px;}
+}
+ 
+/*-------------[End Custom Subscribe]-------------*/
+/*````````````````````````````````````````````````*/
+/*````````````````````````````````````````````````*/
+
+
+
+/*Changing video IFRAME teg - size and background*/
+.et_pb_code .fluid-width-video-wrapper {
+min-width: 379px;
+height: 285px;
+}
+.page-id-28923 .et_parallax_bg {
+background-size: 139% 100%;
+}
+--------------=============================
+
+были поля в слайдере верх и низ
+border-top: 10px solid #e3ca0d;
+border-bottom: 10px solid #e3ca0d;
+
+желт бордюр вокрук картинки
+border: 10px solid #ffce60;
+text-align: center;
+
+==========================================================================
+SEO wordpress СВОИМИ РУКАМИ!!!! БЕЗ ПЛАГИНОВ!!!!! 
+следующий код вставляем в конец functions.php
+==========================================================================
+/** мета заголовок (title):
+	- Первый параметр функции это разделитель, второй название блога (если не указать берется из Настроек).
+	- Для меток и категорий указывается в настройках в описании (в настройках, по аналогии с пунком 6 Platinum SEO Pack, см. выше) так: [title=Заголовок]
+	- Для страниц или постов, если вы хотите чтобы заголовок страницы отличался от заголовка поста, то создайте произвольное поле title и впишите туда свое название
+------------------------------------- */
+function kama_meta_title ($sep=" | ",$bloginfo_name=''){
+	global $wp_query,$post;
+	if (!$bloginfo_name) $bloginfo_name = get_bloginfo('name');
+	$wp_title = wp_title($sep, 0, 'right');
+
+	if (is_category() || is_tag()){
+		$desc = $wp_query->queried_object->description;
+		if ($desc) preg_match ('!\[title=(.*)\]!iU',$desc,$match);
+		$out = $match[1] ? $match[1].$sep : ((is_tag())?"Метка:":"Категория:")." $wp_title";
+	}
+	elseif (is_singular()) $out = ($free_title = get_post_meta($post->ID, "title", true)) ? $free_title.$sep : $wp_title;
+	elseif (is_author()) $out = "Статьи автора: $wp_title";
+	elseif (is_day() || is_month() || is_year()) $out = "Архив за: $wp_title";
+	elseif (is_search()) $out = 'Результаты поиска по запросу: '. strip_tags($_GET['s']) . $sep;
+	elseif (is_404()) $out = "Ошибка 404 - страница не существует".$sep.$wp_title;
+
+	$out = trim($out.$bloginfo_name);
+	if ($paged = get_query_var('paged')) $out = "$out (страница $paged)";
+	return print $out;
+}
+
+/** мета описание (description):
+	- Для главной страницы описание указывается в функции, так: kama_meta_description ('Здесь описание блога');
+	- Для страниц меток и категорий указывается в описании (в настройках, по аналогии с пунком 6 Platinum SEO Pack, см. выше), так: [description=текст, описание]
+	- У постов сначала проверяется, произвольное поле description, если оно есть описание берется оттуда, потом проверяется поле "цитата", если цитаты нет, то описание берется как начальная часть контента.
+	- вторым параметром в функции указывается колличество символов для описания: kama_meta_description ('Описание для главной страницы',200);
+------------------------------------- */
+function kama_meta_description ($home_description='',$maxchar=200){
+	global $wp_query,$post;
+	if (is_singular()){
+		if ( $descript = get_post_meta($post->ID, "description", true) )
+			$out = $descript;
+		elseif ($post->post_excerpt!='')
+			$out = trim(strip_tags($post->post_excerpt));
+		else
+			$out = trim(strip_tags($post->post_content));
+
+		$char = iconv_strlen( $out, 'utf-8' );
+		if ( $char > $maxchar ) {
+			 $out = iconv_substr( $out, 0, $maxchar, 'utf-8' );
+			 $words = split(' ', $out ); $maxwords = count($words) - 1; //убираем последнее слово, ибо оно в 99% случаев неполное
+			 $out = join(' ', array_slice($words, 0, $maxwords)).' ...';
+		 }
+	}
+	elseif (is_category() || is_tag()){
+		$desc = $wp_query->queried_object->description;
+		if ($desc) preg_match ('!\[description=(.*)\]!iU',$desc,$match);
+		$out = $match[1]?$match[1]:'';
+	}
+	elseif (is_home()) $out=$home_description;
+	if ($out){
+		$out = str_replace( array("\n","\r"), ' ', strip_tags($out) );
+		$out = preg_replace("@\[.*?\]@", '', $out); //удаляем шоткоды
+		return print "<meta name='description' content='$out' />\n";
+	}
+	else return false;
+}
+
+/** метатег keywords:
+	- Для главной страницы, ключевые слова указываются в функции так: kama_meta_keywords ('слово1, слово2, слово3');
+	- Также можно вписать ключевые слова во второй параметр, они будут отображаться (добавляться) на всех страницах сайта: kama_meta_keywords ('<ключевики для главной>','<сквозные ключевики>');
+	- Чтобы задать свои keywords для записи, создайте произвольное поле keywords и впишите в значения необходимые ключевые слова. Если такого поля у записи нет, то ключевые слова генерируются из меток и названия категории(й).
+	- Для страниц меток и категорий ключевые слова указываетются в описании (в настройках, по аналогии с пунком 6 Platinum SEO Pack, см. выше) так: [keywords=слово1, слово2, слово3]
+------------------------------------- */
+function kama_meta_keywords ($home_keywords='',$def_keywords=''){
+	global $wp_query,$post;
+	if ( is_single() && !$out=get_post_meta($post->ID,'keywords',true) ){
+		$out = '';
+		$res = wp_get_object_terms( $post->ID, array('post_tag','category'), array('orderby' => 'none') ); // получаем категории и метки
+		if ($res) foreach ($res as $tag) $out .= " {$tag->name}";
+		$out = str_replace(' ',', ',trim($out));
+		$out = "$out $def_keywords";
+	}
+	elseif (is_category() || is_tag()){
+		$desc = $wp_query->queried_object->description;
+		if ($desc) preg_match ('!\[keywords=(.*)\]!iU',$desc,$match);
+		$out = $match[1]?$match[1]:'';
+		$out = "$out $def_keywords";
+	}
+	elseif (is_home()){
+		$out = $home_keywords;
+	}
+	if ($out) return print "<meta name='keywords' content='$out' />\n";
+	return false;
+}
+
+/** метатег robots:
+	- Чтобы задать свои атрибуты метатега robots ДЛЯ ЗАПИСИ или СТРАНИЦЫ, создайте произвольное поле robotsmeta со значением необходимых атрибутов (например, чтобы закрыть от индексации страницу или пост нужно создать произвольное поле robotsmeta со значением noindex,nofollow)
+	- По умолчанию не индексируются страницы поиска и архив за день, страница входа на сайт и регистрации, а так же RSS фиды, чтобы разрешить или запретить индексацию групп/типов (страницы меток, авторов и т.п.) раскомментируйте (уберите # ниже в коде).
+----------------------------------------- */
+function kama_meta_robots ($out = "index,follow"){
+	global $post;
+	$eURL = $_SERVER['REQUEST_URI'];
+	if ( // раскомментируйте нужные строки ниже - раскомментировано значит закрыто от индексации
+		#is_category() 								 ||	// категории
+		#is_tag()  									 ||	// метки
+		#is_author() 								 ||	// архив автора
+		#is_year() 									 ||	// архив за год
+		#is_month() 								 ||	// архив за месяц
+		is_day() 									 ||	// архив за день
+		strpos($eURL, '/wp-login.php') !== false	 || // страница входа на сайт
+		strpos($eURL, '/wp-register.php') !== false  ||	// страница регистрации
+		#strpos($eURL, '/comment-page') !== false 	 ||	// страницы комментариев
+		is_search() 								 ||	// страница поиска
+		is_feed()										// rss фиды
+	) $out = "noindex,nofollow";
+
+	if (is_singular() && $robots = get_post_meta($post->ID,'robotsmeta',true))
+		$out = $robots;
+	return print "<meta name='robots' content='$out' />\n";
+}
+
+ДАЛЕЕ ВСТАВЛЯЕМ ВЫЗОВЫ ФУНКЦИЙ В файл header.php
+
+====----]\\\\\\\\
+просто полезно!!!!
+унаследовать заголовок H2 ко всему тексту в закладках (tabs in divi theme) 
+Please go to Divi > Theme options > Integration
+Look for <head> and add this code there:
+<script type="text/javascript">
+jQuery(document).ready(function($){
+$('.et_pb_tabs_controls li a').wrap('<h2 class="et-tab-title"></h2>');
+});
+</script>
