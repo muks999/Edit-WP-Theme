@@ -1,10 +1,9 @@
-huk
 цвет фона #ffce62   цвет шрифта #211804 на ж фоне   или wdtn шрифта #201600
 Медицинский Центр №1.
 г.Нижний Новгород, ул.Минина 16А,
 www.medcenter1nn.ru
 +7-831-422-24-56 
-что и как в теме undrstrap! 
+что и как в теме undrstrap!
 
 -верхнее цветная граница/рамка:  border-top: 10px solid #e3ca0d;
 
@@ -379,6 +378,15 @@ body {
     color: #444444;
 }
 
+36./*добавляем модальное окно для письм отзыва*/
+в модуле текст прописываем клас  et_pb_lightbox_image и путь к картинке
+..текст.... <a class="et_pb_lightbox_image" href="https://premiumdentnn.ru/wp-content/uploads/Bill.jpg">Письменный отзыв<img src="https://premiumdentnn.ru/wp-content/uploads/Bill.jpg"></a>
+в CUSTOM CSS настройки сайта добавляем следующее: прячем картинку для лайтбокса
+/* lightbox on otzyvy page */
+.page-id-28971 a.et_pb_lightbox_image img {
+    opacity: 0;
+    height: 15px;
+}      
 
 
 -------===========------------==================----------------
