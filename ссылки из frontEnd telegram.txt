@@ -18,3 +18,71 @@ https://villacarte.com/ru/blog
 (A jQuery plugin for entering and validating international telephone numbers http://intl-tel-input.com)
 https://github.com/jackocnr/intl-tel-input
 http://www.jqueryscript.net/form/jQuery-International-Telephone-Input-With-Flags-Dial-Codes.html
+
+!!!!!!!!
+https://medium.freecodecamp.com/438-free-online-programming-computer-science-courses-you-can-start-in-may-aa316e4195fc
+!!!!!!!!
+
+
+Слайдер!!!! с редактированием блоков
+http://kenwheeler.github.io/
+http://kenwheeler.github.io/slick/
+
+
+Как получить доступ к ВКонтакте, если Ваш провайдер его заблокировал?
+ВКонтакте всегда позиционировал себя вне политики, наш сайт — это прежде всего удобная площадка для общения, где каждый может выразить свою точку зрения вне зависимости от страны и национальности. 
+
+Мы понимаем, как важно оставаться на связи с родными и близкими. Если Ваш провайдер по каким-либо причинам заблокировал доступ к ВКонтакте, Вы можете получить доступ к сайту с помощью следующих инструкций:  
+
+1. Как проще всего обойти блокировку на компьютере?
+
+Воспользуйтесь Opera или установите одно из расширений:
+
+- Экономия трафика (от Google)  https://chrome.google.com/webstore/detail/data-saver/pfmgfdlgomnbgkofeojodiodmgpgmkac?utm_source=chrome-app-launcher-info-dialog
+- TunnelBear VPN   https://chrome.google.com/webstore/detail/tunnelbear-vpn/omdakjcmkglenbhjadbccaookpfjihpa
+- Zenmate   https://chrome.google.com/webstore/detail/zenmate-web-firewall-free/hphffohcfcaeoekbkfibilcmmoakhmfc
+
+2. А как обойти блокировку на телефоне?
+
+Воспользуйтесь Opera VPN или другим сервисом. Скачать приложения можно по ссылкам ниже:
+
+- Opera VPN    https://www.operavpn.com/
+- Opera Mobile     https://www.opera.com/ru/mobile
+- Tunnelbear     https://www.tunnelbear.com/
+- Zenmate      https://zenmate.com/
+
+3. Какие есть ещё способы обойти блокировку?
+
+3.1. С помощью замены DNS-сервера
+
+DNS — это адресная книга интернета, где указан цифровой адрес каждого сайта. 
+
+Провайдеры могут блокировать доступ к сайтам на уровне своего DNS-сервера. Вы запрашиваете доступ, в ответ приходит «сайт заблокирован». 
+
+Чтобы обойти такую блокировку, достаточно заменить DNS-сервера Вашего провайдера на другие — тогда сайт найдётся и доступ к нему восстановится. 
+
+Например: 
+8.8.8.8 
+8.8.4.4
+
+- Инструкция для Windows       https://www.comss.ru/page.php?id=754
+- Инструкция для macOS        https://support.apple.com/kb/PH6373?locale=ru_RU&viewlocale=ru_RU
+
+3.2. С помощью Tor-браузера
+
+Тор — это сеть специальных анонимных серверов, которые служат промежуточными узлами. Этот браузер позволяет обходить блокировки, поскольку в таком случае сервер не знает, откуда именно пришел Ваш запрос.
+
+- Скачать браузер для Windows
+- Скачать браузер для macOS
+- Android: Torproject или Google Play
+- iOS: App Store
+
+
+
+
+
+
+
+
+что не так в этой строчке?????
+<script src="<?=get_template_directory_uri()?> /js/jquery.easyModal.js"></script>
