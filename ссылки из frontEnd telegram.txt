@@ -1,0 +1,20 @@
+ Javascript функции для ускорения верстки
+ http://glivera-team.github.io/javascript/2016/04/06/js-functions.html
+ 
+ Printscreen
+ https://monosnap.com/
+  Lightshot
+joxi&
+
+
+Краткий список WYSIWYG редакторов
+https://habrahabr.ru/post/129262/
+
+Полезный сайт 
+https://villacarte.com/ru/blog
+
+
+вывод флага и кода страны для формы обратного звонка или запроса телефона
+(A jQuery plugin for entering and validating international telephone numbers http://intl-tel-input.com)
+https://github.com/jackocnr/intl-tel-input
+http://www.jqueryscript.net/form/jQuery-International-Telephone-Input-With-Flags-Dial-Codes.html
