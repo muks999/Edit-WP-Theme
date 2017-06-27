@@ -424,6 +424,18 @@ border-color: #FFCE60;
 })(jQuery);
 </script>
 
+39. <!-- #Adding breadcrambs with help of YOAST seo plugin -->add this code to the bottom of header.php 
+<?php if(function_exists('yoast_breadcrumb') && !is_front_page()) {
+ echo '<div class="container">';
+ yoast_breadcrumb('<p id="breadcrumbs">','</p>');
+ echo '</div>';
+} ?>
+
+Add this code to bottom of style.css
+#breadcrumbs{ float: left; width: 75%; margin-bottom: 1em; position:relative; z-index:1; }
+@media screen and (max-width: 980px){
+ #breadcrumbs{ width: 100%; }
+}
 
 
 -------===========------------==================----------------
