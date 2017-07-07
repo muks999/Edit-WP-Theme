@@ -437,6 +437,22 @@ Add this code to bottom of style.css
  #breadcrumbs{ width: 100%; }
 }
 
+40. //накладываем крошки поверх следующего элемента//
+.page-id-28971 #et-main-area > .container, .page-id-30918 #et-main-area > .container {
+position: absolute!important;
+width: 100%!important;
+max-width: 100%!important;
+}
+
+#breadcrumbs {
+margin: 0 auto!important;
+width: 80%!important;
+max-width: 1080px!important;
+}
+.page-id-28971 .et_pb_section_0.et_pb_section {
+padding-top: 0 !important;
+}
+
 
 -------===========------------==================----------------
 ИЗ ФАЙЛА STYLE.CSS ИЗ CHILD THEME
