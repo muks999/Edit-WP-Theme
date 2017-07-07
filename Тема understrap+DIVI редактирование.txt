@@ -521,7 +521,33 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 -----
 
----------ИЗ ВСТРОЕННЫХ настроек CSS темы=======
+---------------------------------ИЗ ВСТРОЕННЫХ настроек CSS темы(medcenter)=======================================
+/*Remove Footer bar*/
+#footer-bottom {
+    display: none;
+}
+/*-----правка слайдера для мобильников------*/
+@media only screen and (max-width: 480px) {
+.custom-slider .et_pb_slide {
+height: 230px;
+}
+#page-container {
+padding-top: 156px !important;
+}
+}
+
+h1 { font-size: 30px;}
+h2 { font-size: 26px;}
+h3 { font-size: 22px;}
+h4 {	font-size: 18px;}
+h5 {	font-size: 16px;}
+h6 {	font-size: 14px;}
+
+
+/*.et_pb_slider .et_pb_slide{
+background-size:100% 100%;
+}*/
+
 /*изм цвета заголовка поста при наведение мыши. кнопка читать далее вправо и цвет*/
 .et_pb_blog_0 .et_pb_post .entry-title:hover {
     color: #ffce60 !important;
@@ -840,7 +866,173 @@ height: 285px;
 .page-id-28923 .et_parallax_bg {
 background-size: 139% 100%;
 }
---------------=============================
+-------------------------------КОНЕЦ--ИЗ ВСТРОЕННЫХ настроек CSS темы(medcenter)=======================================
+
+---------------------------------ИЗ ВСТРОЕННЫХ настроек CSS темы(premDent)=======================================
+/*edit breadcrambs for https://premiumdentnn.ru/implant35000/*/
+.page-id-30918 #breadcrumbs{ 
+	float: none; 
+	width: 75%; 
+	margin-bottom: 0em; 
+	position:relative; 
+	z-index:1; 
+}
+
+/*накладываем крошки на след раздел.в отзывах и акции имплант35000*/
+.page-id-28971 #et-main-area > .container, .page-id-30918 #et-main-area > .container  {
+    position: absolute!important;
+    width: 100%!important;
+    max-width: 100%!important;
+}
+
+#breadcrumbs {
+    margin: 0 auto!important;
+    width: 80%!important;
+    max-width: 1080px!important;
+}
+.page-id-28971 .et_pb_section_0.et_pb_section {
+    padding-top: 0 !important;
+}
+
+
+
+/*страница опросник*/
+.et_pb_contact p input[type="radio"]:checked + label i:before { background: #e09900; } 
+.et_pb_contact_field_radio_wrapper .et_pb_contact_field_radio_title { font-size: 24px; font-family: 'ubuntu'; font-weight: 400; } 
+.et_pb_contact_field_radio_wrapper .et_pb_contact_field_radio_list { float: left; overflow: hidden; border: 1px solid #999999; padding: 20px; border-radius: 4px; width: 100%; margin-top: 10px }
+
+/*Remove Footer bar*/
+#footer-bottom {
+    display: none;
+}
+
+/* lightbox on otzyvy page(страница по ID)  прячем картинку (кот будет в лайтбоксе)*/
+.page-id-28971 a.et_pb_lightbox_image img {
+    opacity: 0;
+    height: 15px;
+}
+.page-id-30778 a.et_pb_lightbox_image img {
+    opacity: 0;
+    height: 15px;
+}
+.white-popup {
+  position: relative;
+  background: #FFF;
+  padding: 20px;
+  width: auto;
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+/*6 elements in section partners*/
+.partners1_section .et_pb_image{width:16.66%; float:left;}
+.partners2_section .et_pb_image{width:20%; float:left;}
+
+/*прячем назв файлов в галереи*/
+.mfp-title{
+color:transparent;
+}
+
+
+/*делаем жирным только основные пункты мобильного меню*/
+.et_mobile_menu li a {
+font-weight: bold;
+}
+.et_mobile_menu li li a {
+font-weight: normal;
+}
+/*Убираем background в галлереи-РАЗДВИГАЕМ КАРТИНКИ*/
+.et_pb_gallery_items[data-per_page="3"] .et_pb_gallery_item.et_pb_grid_item {
+margin-right: 1% !important;
+width: 32% !important;
+}
+
+/*Делаем вкладки изначально закрытые*/
+.et_pb_all_tabs .et_pb_active_content {
+display: none;
+}
+/*---------выравнивание вправо тел и емыл в верхнем хедере----------*/
+#et-info {
+    float: right;
+}
+
+
+.pdfont {font-family: 'Exo 2', sans-serif;}
+h1 {font-family: 'Exo 2', sans-serif;}
+
+/*MOVE IMAGE TO TOP LEFT EDGE OF SLIDER*/
+ 
+/* 
+#dm-slider .et_pb_slide_image img {
+    margin-top: 0px;
+    margin-left: 0px;
+    max-height: 100% !important;
+}
+#dm-slider .et_pb_slide {
+    padding-left: 0px;
+}*/
+
+/* TURN DOTS INTO RECTANGLES */
+ 
+ 
+#dm-slider .et-pb-controllers a {
+    width: 24px;
+    height: 4px;
+    margin-right: 4px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+#dm-slider .et-pb-arrow-prev,
+#dm-slider .et-pb-arrow-next {
+    background-color: rgba(0, 0, 0, .25);
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50% !important;
+}
+#dm-slider .et-pb-controllers {
+    top: 30px !important;
+    left: calc(47.25% + 20px)!important;
+    width: 50%!important;
+    height: 10px!important;
+    text-align: left!important;
+}
+
+/*------------------------------------------------*/
+/*---------------[Custom Subscribe]---------------*/
+/*------------------------------------------------*/
+ 
+.demo-subscribe-section .et_pb_newsletter{padding: 20px 10px; border-radius:10px;}
+.demo-subscribe-section .et_pb_newsletter_description {padding: 0 0 20px 0; width: 100%;}
+.demo-subscribe-section .et_pb_newsletter_form {width: 100%;}
+.demo-subscribe-section .et_pb_newsletter_form p {display: inline-block; margin-right: 40px;}
+.demo-subscribe-section .et_pb_newsletter_form p input { padding: 8px 4% !important; width: 300px;}
+.demo-subscribe-section .et_pb_newsletter_button {padding: 2px 6px;}
+.demo-subscribe-section a.et_pb_newsletter_button:hover {padding: 2px 6px!important;}
+.demo-subscribe-section a.et_pb_newsletter_button:after {display:none;}
+.demo-subscribe-section .et_pb_newsletter_form p:nth-child(3) {display: none;}
+ 
+@media only screen and (max-width: 1100px) {
+.demo-subscribe-section .et_pb_newsletter_form p input { padding: 8px 4% !important; width: 275px;}
+}
+ 
+@media only screen and (max-width: 980px) {
+.demo-subscribe-section .et_pb_newsletter_form p input { padding: 8px 4% !important; width: 220px;}
+.demo-subscribe-section .et_pb_newsletter_description { width: 100% !important;}
+}
+ 
+@media only screen and (max-width: 767px) {
+.demo-subscribe-section .et_pb_newsletter_form p input { padding: 8px 4% !important; width: 240px;}
+}
+ 
+@media only screen and (max-width: 479px) {
+.demo-subscribe-section .et_pb_newsletter_form p input { padding: 8px 4% !important; width: 180px;}
+}
+ 
+/*-------------[End Custom Subscribe]-------------*/
+/*````````````````````````````````````````````````*/
+/*````````````````````````````````````````````````*/
+---------------------------КОНЕЦ------ИЗ ВСТРОЕННЫХ настроек CSS темы(premDent)=======================================
 
 были поля в слайдере верх и низ
 border-top: 10px solid #e3ca0d;
