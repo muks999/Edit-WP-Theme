@@ -1178,3 +1178,8 @@ jQuery(document).ready(function($){
 $('.et_pb_tabs_controls li a').wrap('<h2 class="et-tab-title"></h2>');
 });
 </script>
+
+изменяем цвет поля в форме контактов после ввода текста
+/* Change the white to any color ;) */
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset; 
