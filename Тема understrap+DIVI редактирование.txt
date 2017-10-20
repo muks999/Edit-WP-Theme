@@ -468,6 +468,26 @@ padding-top: 0 !important;
         font-weight: 700;
 }
 
+42.вешаем на кнопку попап тригер(форму) из popup maker plugin
+-добавить код в head (Add code to the < head > of your blog)
+<script type="application/javascript">
+(function($) {
+$(document).ready(function() {
+
+$('.page-id-50 .et_pb_pricing_table_0').find('.et_pb_pricing_table_button').addClass('popmake-1305');
+$('.page-id-50 .et_pb_pricing_table_1').find('.et_pb_pricing_table_button').addClass('popmake-1305');
+
+$('.page-id-49 .et_pb_pricing_table_0').find('.et_pb_pricing_table_button').addClass('popmake-1292');
+$('.page-id-49 .et_pb_pricing_table_1').find('.et_pb_pricing_table_button').addClass('popmake-1292');
+$('.page-id-49 .et_pb_pricing_table_2').find('.et_pb_pricing_table_button').addClass('popmake-1292');
+$('.page-id-49 .et_pb_pricing_table_3').find('.et_pb_pricing_table_button').addClass('popmake-1292');
+
+});
+})(jQuery)
+</script>
+пример кода для pricing table
+указываем нужную страницу и блок, ищем в нем класс кнопки и добовляем класс попап нужной формы
+-на кнопке в модуле в УРЛ просто вставляем  #
 
 -------===========------------==================----------------
 ИЗ ФАЙЛА STYLE.CSS ИЗ CHILD THEME
