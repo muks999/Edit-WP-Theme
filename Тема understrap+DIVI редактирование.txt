@@ -489,6 +489,40 @@ $('.page-id-49 .et_pb_pricing_table_3').find('.et_pb_pricing_table_button').addC
 указываем нужную страницу и блок, ищем в нем класс кнопки и добовляем класс попап нужной формы
 -на кнопке в модуле в УРЛ просто вставляем  #
 
+43. Добавть 2 телефон в верхний header, сменить иконку на WhatsApp и отображения телефона на разных видах стр(phone|pad VS desktop)
+ a) В header.php прописываем этот код
+ <?php if ( '' !== ( $et_phone_number = et_get_option( 'phone_number' ) ) ) : ?>
+<span id="et-info-phone2"><a href="https://api.whatsapp.com/send?phone=79101234567" id="secondphone">WhatsApp +7 (910) 387-23-64</a></span>
+<?php endif;?>
+
+  сразу после
+  
+ <?php if ( '' !== ( $et_phone_number = et_get_option( 'phone_number' ) ) ) : ?>
+					<span id="et-info-phone"><?php echo et_sanitize_html_input_text( $et_phone_number ); ?></span>
+				<?php endif; ?>
+				
+ б) прописываем стили для отображения нужного телефона на нужном виде страницы
+ /*---2 тел в хедере---*/
+@media only screen and (min-width: 981px) {    /*---показываем whatsapp тел только на phone/pad View---*/
+#et-info-phone2 { 
+display: none;
+}
+}
+
+@media(max-width:980px){   /*---показываем стандартный тел только на desktop View---*/
+#et-info-phone {
+display:none;
+}
+}
+/*---2 тел в хедере---*/
+ 				
+
+
+
+
+https://premiumdentnn.ru/wp-content/uploads/whatsapp-messenger-android.jpg
+
+
 -------===========------------==================----------------
 ИЗ ФАЙЛА STYLE.CSS ИЗ CHILD THEME
 /*Добавляем шрифт*/
