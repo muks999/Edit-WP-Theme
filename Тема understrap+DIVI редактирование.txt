@@ -455,6 +455,7 @@ padding-top: 0 !important;
 
 41.  
 /*popup form*/
+--*1*-- 
 .et_pb_contact_field_options_title {
  display: none;
 }
@@ -467,6 +468,10 @@ padding-top: 0 !important;
     border-color: #df8c46;
         font-weight: 700;
 }
+--*2*--  попап в хедере медцентра  (по методу 4 из http://docs.wppopupmaker.com/article/144-trigger-click-open)
+код в header.php
+<div class="book_button et_pb_button">
+<a href="#" onclick="jQuery('#popmake-118605').popmake('open')">Записаться</a></div>
 
 42.вешаем на кнопку попап тригер(форму) из popup maker plugin
 -добавить код в head (Add code to the < head > of your blog)
