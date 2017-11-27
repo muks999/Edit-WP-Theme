@@ -523,9 +523,16 @@ display:none;
  				
 
 
+44. Вставляем POPUP видео из ютуба на базе картинки
+   здесь скачиваем превью видео http://alexbruni.ru/youtube2images/index.php
+описание как что делать с видео   https://github.com/kary4/divituts/wiki/How-To-Open-Youtube-Video-In-Lightbox-Using-Image-Module
+ 1-Add an image module and define an image;
+ 2-Add Youtube URL to the Link URL: option;
+ 3-Add the following class to the image module: popup-youtube;
+ 4-Add the following script to the wp-admin>divi>theme options>Integration>Add code to the < head > of your blog option:
 
 
-https://premiumdentnn.ru/wp-content/uploads/whatsapp-messenger-android.jpg
+
 
 
 -------===========------------==================----------------
