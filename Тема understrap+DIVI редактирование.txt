@@ -1271,3 +1271,56 @@ $('.et_pb_tabs_controls li a').wrap('<h2 class="et-tab-title"></h2>');
 /* Change the white to any color ;) */
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 30px white inset; 
+    
+    =-=-=-============----------------------=-=-=-============--------
+    ПРАВКИ ДЛЯ ДИВИ. РАЗНЫЕ НАСТРОЙКИ ДЛЯ УБИРАНИЕ КОСЯКОВ ИЛИ ТЮНИНГА)
+    
+Divi Shape Dividers - They are inline SVG's (it seems). Is it possible to change their color via CSS?
+
+Richard Ginn 
+.et_pb_section_1.section_has_divider.et_pb_top_divider .et_pb_top_inside_divider {
+background-color: bisque!important;
+}
+
+I say you might be able to do it through CSS. This was just a test on a junk page with only two sections.
+
+
+Solved it.. By setting the background color via CSS, and "pulling up" the bottom divider to the top, I can have a global post header with different colors based on post category... Bit proud of that solution ;)
+https://www.youtube.com/watch?v=MSzeHBdMy7o
+
+
+Bjarne Oldrup With the following two lines of CSS, I set the background color of the Space Divider, and "pulls it up" so to speak, so it fits by desired design. In the (quite bad) screencast, you can see it demoed. 
+
+.category-vand .divi-pull-up-space-divider .et_pb_bottom_inside_divider {
+background: #0091d2;
+top: 0;
+}
+
+https://youtu.be/jlyejCU-l4k
+-==-=-=-=-=---===--------=============-
+Указание момента когда хедер будет переходит во второе состояние(уменьшение)
+
+
+— solved by pierre —
+Hey Divi-Gurus,
+Question about the fixed-header: My header is set to transparent background. When scrolling down the fixed header has a white color background. All works fine.
+
+I just wonder if anyone have an idea about to change the time when the fixed header will be show.
+
+How can I change the delay time of the fixed header to be displayed earlier? Thanks in advance.
+
+I've attached a screencast for better understanding.
+
+Try this in your footer.php or ideally in a separate js file:
+jQuery(document).ready(function($) {
+$( window ).scroll (function () {
+if ($( window ).scrollTop()>50) {
+$('#main-header').addClass('et-fixed-header');
+}
+else {
+$('#main-header').removeClass('et-fixed-header');
+}
+});
+});
+
+======--------========------=-=-=-=-========-----------------
